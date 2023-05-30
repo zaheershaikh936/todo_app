@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 
 // !other import
@@ -12,7 +12,6 @@ const SingIn = () => {
     const navigate = useNavigate();
     const [email, setEmailValue] = useState('');
     const [password, setPasswordValue] = useState('');
-    const isLoginData = useSelector((store: any) => store.auth);
     const loginForm = async () => {
         const { data } = await axios.post('/auth/login', { email, password });
         if (data?.statusCode === 200) {

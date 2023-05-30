@@ -7,7 +7,7 @@ import axios, {
   AxiosRequestConfig,
 } from "axios";
 
-type ApiResponse<T> = {
+type ApiResponse = {
   data: any;
   status: number;
   message: string;
@@ -57,7 +57,7 @@ class ApiCalls {
     }
   }
 
-  public async callApi<T>(config: CallApiConfigTypes): Promise<ApiResponse<T>> {
+  public async callApi<T>(config: CallApiConfigTypes): Promise<ApiResponse> {
     try {
       console.log("calling api call of header");
 
@@ -82,14 +82,14 @@ class ApiCalls {
 
   public async get<T>(
     apiCallConfig: CallApiConfigTypes
-  ): Promise<ApiResponse<T>> {
+  ): Promise<ApiResponse> {
     apiCallConfig.method = "GET";
     return await this.callApi<T>(apiCallConfig);
   }
 
   public async post<T>(
     apiCallConfig: CallApiConfigTypes
-  ): Promise<ApiResponse<T>> {
+  ): Promise<ApiResponse> {
     apiCallConfig.method = "POST";
     return await this.callApi<T>(apiCallConfig);
   }
@@ -97,7 +97,7 @@ class ApiCalls {
   public async put<T>(
     apiCallConfig: CallApiConfigTypes,
     data?: any
-  ): Promise<ApiResponse<T>> {
+  ): Promise<ApiResponse> {
     apiCallConfig.method = "PUT";
     apiCallConfig.data = data;
     return await this.callApi<T>(apiCallConfig);
@@ -105,7 +105,7 @@ class ApiCalls {
 
   public async delete<T>(
     apiCallConfig: CallApiConfigTypes
-  ): Promise<ApiResponse<T>> {
+  ): Promise<ApiResponse> {
     apiCallConfig.method = "DELETE";
     return await this.callApi<T>(apiCallConfig);
   }

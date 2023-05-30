@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRouteError } from "react-router-dom";
 
 export default function Error() {
@@ -6,11 +7,13 @@ export default function Error() {
 
   return (
     <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+      <center className='mt-10'>
+        <h1>Oops!</h1>
+        <p>Sorry, an unexpected error has occurred.</p>
+        <p>
+          <i>{error.statusText || error.message}</i>
+        </p>
+      </center>
     </div>
   );
 }
