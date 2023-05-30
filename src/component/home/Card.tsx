@@ -2,6 +2,7 @@ import { MdTaskAlt, MdOutlineFavoriteBorder, MdFavorite } from 'react-icons/md'
 import axios from '../../api/axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useState } from 'react'
+import * as React from 'react'
 
 type IData = {
     _id:string,
@@ -66,7 +67,7 @@ const Card = ({ _id, title, contain, type, like, handleRefresh }: IData) => {
                 </div>
                 <div className='flex justify-between gap-2 mt-3'>
                     <button className={`${type === 'non-important'? 'bg-green-300': type === 'important'?'bg-red-300':type === 'later'? 'bg-yellow-300' :''} text-sm text-white px-5 p-2 rounded-md font-semibold`}>{type}</button>
-                    <button onClick={()=>{deleteTodo(_id)}} className='text-sm bg-blue-300 p-2 px-10 rounded-md font-semibold text-white'>Delete</button>
+                    <button onClick={()=>{deleteTodo(_id)}} className='text-sm bg-blue-300 p-2 px-6 rounded-md font-semibold text-white'>Delete</button>
                 </div>
             </div>
         </>
