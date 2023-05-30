@@ -28,7 +28,7 @@ class ApiCalls {
 
   constructor(config?: AxiosRequestConfig) {
     this.instance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL: 'https://todo-solo-backend-production.up.railway.app/',
       timeout: 5000,
       headers: {
         "Content-Type": "application/json",

@@ -28,7 +28,6 @@ const ListTodo = () => {
     const navigate = useNavigate();
     const isLoginData = useSelector((store: any) => store.auth);
     const isLogin = isLoginData?.isLogin
-    axios.defaults.headers.common.Authorization = isLoginData?.jwt;
     
     const getTodo = async () => {
         const response = await axios.get('/todo');

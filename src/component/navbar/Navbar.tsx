@@ -1,3 +1,4 @@
+import * as React from 'react';
 // ! other import
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -11,16 +12,19 @@ import axios from '../../api/axios';
 // from backend  just send title to show and display the title in map
 const Navbar = () => {
 	const [tagCount, setTagCount] = useState({important: 0, Non_important:0, later:0});
+	const [favorites, setFavoritesValue] = useState([]);
 	const isLoginData = useSelector((store: any) => store.auth);
-    const isLogin = isLoginData?.isLogin
+	const isLogin = isLoginData?.isLogin;
+	axios.defaults.headers.common.Authorization = isLoginData?.jwt;
+	
 	const getTagCount = async () => {
 		const response = await axios.get('todo/favorites');
-		if (response?.status === 200) {
-			setTagCount(response?.data?.data)
+		if (response?.status === 200) {		
+			setFavoritesValue(response?.data?.data)
 		}
 		return response;
 	}
-
+	
 	const getFavorites = async () => {
 		const response = await axios.get('todo/tag-count');
 		if (response?.status === 200) {
@@ -30,7 +34,7 @@ const Navbar = () => {
 	}
 
 	useEffect(() => {
-		if (isLogin) {
+		if (isLogin === true) {
 			getTagCount();
 			getFavorites();
 		}
@@ -74,18 +78,25 @@ const Navbar = () => {
 					<hr />
 					<div className="mt-3">
 						<p className="text-xl font-semibold">Favorites</p>
-						<div className="px-4 mt-2 flex gap-2 text-red-300">
-							<MdTaskAlt className="text-3xl" />
-							<p className="text-md one-line font-semibold">Design</p>
-						</div>
-						<div className="px-4 mt-2 flex gap-2 text-green-300">
+						{favorites.length != 0 ? favorites.map(({type,title}) => { return(
+							<div className={`${type === 'non-important' ? 'text-green-300' : type === 'important' ? 'text-red-300' : type === 'later' ? 'text-yellow-300' : ''} px-4 mt-2 flex gap-2`}>
+								<MdTaskAlt className="text-3xl" />
+								<p className="text-md one-line font-semibold">{title}</p>
+							</div>
+						)}): 
+							<div className='text-red-300 px-4 mt-2 flex gap-2'>
+								<MdTaskAlt className="text-3xl" />
+								<p className="text-md one-line font-semibold">Please add Todo</p>
+							</div>
+						}	
+						{/* <div className="px-4 mt-2 flex gap-2 text-green-300">
 							<MdTaskAlt className="text-3xl" />
 							<p className="text-md one-line font-semibold">Development</p>
 						</div>
 						<div className="px-4 mt-2 flex gap-2 text-yellow-300">
 							<MdTaskAlt className="text-3xl" />
 							<p className="text-md one-line font-semibold">Logo redesign</p>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
