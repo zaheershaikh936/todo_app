@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance: any = axios.create({
-	baseURL: 'https://todo-solo-backend-production.up.railway.app/'
+  baseURL: import.meta.env.VITE_PUBLIC_API_URL,
 });
 axiosInstance.interceptors.response.use(
 	(response: any) => response,
